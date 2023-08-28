@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load sidebar %}
+
+{% block title %} {{ title }} :: {{block.super}} {% endblock %}
+
+{% block content %}
+
+<section class="blog-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="blog-post-area-style">
+                {% for post in posts %}
+                    <div class="col-md-3">
+                        <div class="single-post">
+                            <div class="main-img">
+                                {% if post.photo %}
+                                <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                                {% else %}
+                                <img src="{% static 'img/no-image.jpeg'%}" alt="{{ post.title }}" height="201" width="300">
+                                {% endif %}
+                            </div>
+                            <h3><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords_html:7|safe }}</a></h3>
+                            <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span></h4>
+                            <a href="{{ post.get_absolute_url }}"><p>{{ post.content|truncatewords_html:20|safe }}</p></a>
+                            <h4><span>{{ post.created_at|date:"d.m.Y" }}</span></h4>
+                        </div>
+                    </div>
+                {% endfor %} 
+            </div>
+        </div>
+
+        {% if page_obj.has_other_pages %}
+            <div class="pegination">
+                <div class="nav-links">
+
+                    {% if page_obj.has_previous %}
+                        <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    {% endif %}
+
+                    {% for p in page_obj.paginator.page_range %}
+                        {% if page_obj.number == p %}
+                        <span class="page-numbers current">{{ p }}</span>
+                        {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                        <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <section class="main-nav single-blog-area">
+            <div class="right-tags">
+                {% get_tags %}
+            </div>
+            
+            <div class="left-search newsletter">
+                <h2 class="sidebar-title main-tl">Search</h2>
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" name="s" id="" placeholder="Search...">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        </section>  
+    </div>
+</section>
+
+{% endblock %}
