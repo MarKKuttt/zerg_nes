@@ -33,6 +33,11 @@
   <br>
 </p>
 
+<p align="center">
+  <img src="img3.jpg" width="100%"/>
+  <br>
+</p>
+
 <br>
 
 <div align="center">
