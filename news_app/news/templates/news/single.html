@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <div class="commententries">
+                            <!-- <div class="commententries">
                                 <h3>Comments</h3>
                                 <ul class="commentlist">
                                     {% for comment in comments %}
@@ -60,7 +60,7 @@
                                     <li>
                                     {% endfor %}
                                 </ul>
-                            </div>
+                            </div> -->
 
                             {% if comments.has_other_pages %}
                                 <div class="pagination pag-comment">
@@ -85,7 +85,7 @@
                             {% endif %}
                             
                             
-                            <form id="comment-form" method="post" action="{% url 'add_comment' post.id %}">
+                            <!-- <form id="comment-form" method="post" action="{% url 'add_comment' post.id %}">
                                 {% csrf_token %}
                                 <div class="name">
                                     <input type="text" name="username" placeholder="Name" class="name">
@@ -102,7 +102,7 @@
                                 <div class="post">
                                     <input type="submit" value="Add comment" disabled>
                                 </div>
-                            </form>
+                            </form> -->
                             
                         </div>
                     </div>
